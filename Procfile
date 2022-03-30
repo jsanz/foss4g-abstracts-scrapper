@@ -1,1 +1,1 @@
-web: gunicorn hellofly:app
+web: gunicorn foss4g-abstracts:app
