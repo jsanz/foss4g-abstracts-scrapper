@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>FOSS4G Abstracts list</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+</head>
+<body>
+    <main class="container">
+        <h1>FOSS4G Abstracts list</h1>
+        {% if abstracts %}
+        <p>Abstracts for <mark><tt>{{foss4gid}}</tt></mark></p>
+        
+        <table role="grid">
+            <tr>
+                <th>Title</th>
+                <th>Page</th>
+            </tr>
+            {% for abstract in abstracts %}
+            <tr>
+                <td>{{abstract.title}}</td>
+                <td>{{abstract.page}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <div class="grid">
+            <form>
+                <label for="foss4gid">FOSS4G pretalx ID:
+                    <input type="text" id="foss4gid" name="foss4gid">
+                </label>
+                <input onclick="window.location.href = '/';" type="submit" value="Get abstracts" />
+            </form>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
