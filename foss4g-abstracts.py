@@ -11,7 +11,6 @@ def is_checked(tag):
 
 def processPage(foss4gid, page):
   url = f'{URL}/{foss4gid}?'
-  print(url)
   r = requests.get(url=url,params={'page': page})
   soup = BeautifulSoup(r.text, 'html.parser')
   cards = soup.find_all('div', class_="submission-card")
@@ -27,6 +26,8 @@ def processPage(foss4gid, page):
     abstract['score'] = int(checked[0]['value']) if len(checked) == 1  else  None
 
     abstracts.append(abstract)
+  if len(abstracts) == 0:
+      raise Exception("No abstracts retreived")
   return abstracts
 
 def flatten(t):
@@ -40,5 +41,10 @@ app = Flask(__name__)
 @app.route('/')
 def foss4gid():
     foss4gid = request.args.get("foss4gid")
-    abstracts = getAbstracts(foss4gid) if foss4gid else None
-    return render_template('foss4g-abstracts.html', foss4gid=foss4gid, abstracts=abstracts)
+    try:
+        abstracts = getAbstracts(foss4gid) if foss4gid else None
+        error = None
+    except Exception:
+        abstracts = None
+        error = True
+    return render_template('foss4g-abstracts.html', foss4gid=foss4gid, abstracts=abstracts, error=error)

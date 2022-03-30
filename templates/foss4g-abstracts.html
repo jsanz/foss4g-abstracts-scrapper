@@ -11,29 +11,54 @@
     <main class="container">
         <h1>FOSS4G Abstracts list</h1>
         {% if abstracts %}
-        <p>Abstracts for <mark><tt>{{foss4gid}}</tt></mark></p>
-        
-        <table role="grid">
-            <tr>
-                <th>Title</th>
-                <th>Page</th>
-            </tr>
-            {% for abstract in abstracts %}
-            <tr>
-                <td>{{abstract.title}}</td>
-                <td>{{abstract.page}}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        <section>    
+            <p>Enjoy! :-)</p>
+            
+            <table role="grid">
+                <tr>
+                    <th>Title</th>
+                    <th>Page</th>
+                </tr>
+                {% for abstract in abstracts %}
+                <tr>
+                    <td>{{abstract.title}}</td>
+                    <td>{{abstract.page}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
         {% else %}
-        <div class="grid">
-            <form>
-                <label for="foss4gid">FOSS4G pretalx ID:
-                    <input type="text" id="foss4gid" name="foss4gid">
-                </label>
-                <input onclick="window.location.href = '/';" type="submit" value="Get abstracts" />
-            </form>
-        </div>
+        {% if error %}
+        <section>
+            <h3>Error processing the request</h3>
+            <div>
+                <mark>Please check your identifier</mark>
+            </div>
+        </section>
+        {% endif %}
+        <section>
+            <h3>Submit your FOSS4G identifier</h3>
+            <p>Put on the following form the string that was shared with you 
+                in the notification received from the FOSS4G submissions form. 
+                For example, from the screenshot below you would need to copy the string between 
+                <mark>bc2325...</mark> and <mark>MX5_sc</mark>. Don't copy the 
+                final forward slash character.
+            </p>
+    
+            <div>
+                <figure>
+                    <img src="{{ url_for('static', filename='img/screenshot.png') }}"/>
+                </figure>
+            </div>
+            <div class="grid">
+                <form>
+                    <label for="foss4gid">FOSS4G pretalx ID:
+                        <input type="text" id="foss4gid" name="foss4gid" value="bc2325....MX5_sc">
+                    </label>
+                    <input onclick="window.location.href = '/';" type="submit" value="Get abstracts" />
+                </form>
+            </div>
+        </section>
         {% endif %}
     </main>
 </body>
