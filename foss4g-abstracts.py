@@ -1,15 +1,30 @@
 # -*- coding: utf-8 -*-
+from asyncio.log import logger
+import os
 from flask import Flask, render_template, request
 from bs4 import BeautifulSoup
 import requests
+import logging
 
-URL='https://talks.osgeo.org/foss4g-2022/p/voting/talks'
-PAGES=21
+
+logging.basicConfig(level=logging.WARN,format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%H:%M:%S')
+
+URL=os.getenv('FOSS4G_URL', default='https://talks.osgeo.org/foss4g-2022/p/voting/talks')
+PAGES=int(os.getenv('FOSS4G_PAGES',default='21'))
+
+logger = logging.getLogger(__name__)
+
+loggingLevel = logging.DEBUG if os.getenv('FLASK_ENV') == 'development' else logging.INFO
+logger.setLevel(loggingLevel)
+
+logger.debug(f'URL={URL}')
+logger.debug(f'PAGES={PAGES}')
 
 def is_checked(tag):
   return tag.has_attr('checked')
 
 def processPage(foss4gid, page):
+  logger.debug(f'Processing page {page} for {foss4gid}')
   url = f'{URL}/{foss4gid}?'
   r = requests.get(url=url,params={'page': page})
   soup = BeautifulSoup(r.text, 'html.parser')

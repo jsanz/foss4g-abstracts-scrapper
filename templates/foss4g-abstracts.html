@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
             <div class="grid">
                 <form>
                     <label for="foss4gid">FOSS4G pretalx ID:
-                        <input type="text" id="foss4gid" name="foss4gid" value="bc2325....MX5_sc">
+                        <input type="text" id="foss4gid" name="foss4gid" value="{% if foss4gid %}{{foss4gid}}{% else %}bc2325....MX5_sc{% endif %}">
                     </label>
                     <input onclick="window.location.href = '/';" type="submit" value="Get abstracts" />
                 </form>
