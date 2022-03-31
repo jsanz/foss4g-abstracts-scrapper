@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 
 URL='https://talks.osgeo.org/foss4g-2022/p/voting/talks'
-PAGES=4
+PAGES=21
 
 def is_checked(tag):
   return tag.has_attr('checked')
