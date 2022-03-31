@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>FOSS4G Abstracts list</title>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <main class="container">
@@ -15,14 +15,19 @@
             <p>Enjoy! :-)</p>
             
             <table role="grid">
-                <tr>
-                    <th>Title</th>
-                    <th>Page</th>
-                </tr>
                 {% for abstract in abstracts %}
+                <tr class="abstract-data">
+                    <td class="title contrast">
+                        <strong>
+                            <a href="{{url}}?page={{abstract.page}}" target="_blank">
+                                {{abstract.title}}</strong>
+                            </a>
+                    </td>
+                    <td class="page">Page: <mark>{{abstract.page}}</mark></td>
+                    <td class="score">Score: <mark>{{abstract.page}}</mark></td>
+                </tr>
                 <tr>
-                    <td>{{abstract.title}}</td>
-                    <td>{{abstract.page}}</td>
+                    <td class="abstract" colspan="3">{{abstract.html | safe}}</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -37,6 +42,17 @@
         </section>
         {% endif %}
         <section>
+            <h3>What is this site?</h3>
+            <p>The FOSS4G community review is a shared effort to evaluate all the 400
+                abstracts submitted in a fair process. The system randomizes the list to give everyone the
+                same chance to get votes so your list will be different from everyone else.
+            </p>
+            <p>
+                This site gives you in a single page the full list
+                of abstracts along with the page on the evaluation system and the current
+                score you've submitted. This will be helfpul for those willing to provide
+                feedback to selected talks avoiding to traverse the 20 pages of abstracts.
+            </p>
             <h3>Submit your FOSS4G identifier</h3>
             <p>Put on the following form the string that was shared with you 
                 in the notification received from the FOSS4G submissions form. 
@@ -44,7 +60,6 @@
                 <mark>bc2325...</mark> and <mark>MX5_sc</mark>. Don't copy the 
                 final forward slash character.
             </p>
-    
             <div>
                 <figure>
                     <img src="{{ url_for('static', filename='img/screenshot.png') }}"/>

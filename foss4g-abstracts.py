@@ -3,8 +3,8 @@ from flask import Flask, render_template, request
 from bs4 import BeautifulSoup
 import requests
 
-URL='https://talks.osgeo.org/foss4g-2022/p/voting/talks/'
-PAGES=21
+URL='https://talks.osgeo.org/foss4g-2022/p/voting/talks'
+PAGES=4
 
 def is_checked(tag):
   return tag.has_attr('checked')
@@ -47,4 +47,8 @@ def foss4gid():
     except Exception:
         abstracts = None
         error = True
-    return render_template('foss4g-abstracts.html', foss4gid=foss4gid, abstracts=abstracts, error=error)
+    return render_template('foss4g-abstracts.html', 
+      url = f'{URL}/{foss4gid}',
+      foss4gid=foss4gid, 
+      abstracts=abstracts, 
+      error=error)
